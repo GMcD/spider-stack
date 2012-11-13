@@ -31,7 +31,12 @@ public class Wasp extends DroidGap
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        super.loadUrl("file:///android_asset/www/app.html");
+        super.init(); 
+        super.clearCache(); 
+        //        super.loadUrl("file:///android_asset/www/app.html");
+//        super.loadUrl("http://devel.projectscapa.com/exercise.html");
+        // Load entry point local
+        super.loadUrl("file:///android_asset/www/exercise.html");
     }
     
 //    @Override
