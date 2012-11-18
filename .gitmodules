@@ -1,3 +1,6 @@
 [submodule "ios/assets"]
 	path = ios/assets
 	url = https://github.com/GMcD/spiders.git
+[submodule "droid/assets"]
+	path = droid/assets
+	url = https://github.com/GMcD/spiders.git
