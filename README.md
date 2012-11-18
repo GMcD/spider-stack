@@ -6,4 +6,4 @@ Distributed Mobile Application Stack - ServiceStack + Backbone.js + jQuery Mobil
 This sample intends to build on ServiceStack as the backend for cross device mobile apps, 
 with Backbone providing application services and jQuery Mobile for UI widgets.
 
-The addition of the backend c# implementation will help.
+The backend C# implementation is in spider-web.
