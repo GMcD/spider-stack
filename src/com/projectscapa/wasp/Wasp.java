@@ -21,24 +21,53 @@ package com.projectscapa.wasp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
 
 import org.apache.cordova.*;
 
 public class Wasp extends DroidGap
 {
-    @Override
+	final Activity activity = this;
+	private ProgressBar loadingProgress;
+	
+	@Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        super.loadUrl("file:///android_asset/www/app.html");
+        super.init(); 
+        super.clearCache(); 
+        
+        // super.setIntegerProperty("splashscreen", R.drawable.splash);
+        // this.setIntegerProperty("loadUrlTimeoutValue", 120000);
+        
+        // Load entry point local - not remote at http://devel.projectscapa.com/exercise.html - that is done in exercise.js
+        super.loadUrl("file:///android_asset/www/exercise.html");
+
+        // Add a native Layout for the Activity Loading - before jQuery Mobile becomes available
+        View footer = View.inflate(getContext(), R.layout.progress, null);
+        root.addView(footer);
+        // Find the Progress Bar in the layout
+        loadingProgress = (ProgressBar) findViewById(R.id.progressBar1);
+        // Add a delegate to call back with the actual progress
+        this.appView.setWebChromeClient(new WebChromeClient() {
+
+                public void onProgressChanged(WebView view, int progress) { 
+                    activity.setProgress(progress * 1000);
+                    if(progress < 100 && loadingProgress.getVisibility() == ProgressBar.GONE) {
+                    	loadingProgress.setVisibility(ProgressBar.VISIBLE);
+                    }
+                    loadingProgress.setProgress(progress);
+                    if(progress == 100) {
+                    	loadingProgress.setVisibility(ProgressBar.GONE);
+                    }
+                    Log.d("Progress", progress+"");
+                 }
+            });
     }
     
-//    @Override
-//    public void onResume()
-//    {
-//    	super.onResume();
-//    	super.loadUrl("javascript:window.location.reload();");
-//    }
 }
 
